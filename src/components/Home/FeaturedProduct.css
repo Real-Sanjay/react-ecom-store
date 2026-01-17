@@ -1,0 +1,14 @@
+.featured_products {
+    margin: 65px;
+    flex-direction: column;
+}
+
+.featured_products_title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 65px;
+}
+
+.product_cards {
+gap: 150px;
+}

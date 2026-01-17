@@ -1,0 +1,11 @@
+.product_page_category{
+    width: 90%;
+    padding: 10px 5px;
+    margin: 5px;
+    background-color: #fff;
+}
+
+.product_page_category h2 {
+    font-size: 20px;
+    font-weight: 600;
+}

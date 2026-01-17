@@ -1,0 +1,63 @@
+.hero_main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: 450px;
+    background-color: #000;
+    padding: 0 60px;
+    color: #fff;
+}
+
+.hero_info {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+}
+
+.hero_image {
+    width: 500px;
+    margin-right: 100px;
+}
+
+.hero_title {
+    font-style: inherit;
+    font-weight: 700;
+    font-size: 40px;
+}
+
+.hero_desc {
+    font-size: 18px;
+    width: 60%;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.hero_buy_btn{
+    border: 2px solid #fff;
+    border-radius: 15px;
+    padding: 7px 20px;
+    background-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.hero_buy_btn:hover{
+    border: 2px solid #fff;
+    border-radius: 15px;
+    padding: 7px 20px;
+    background-color: #fff;
+    color: #000;
+    font-weight: 600;
+
+
+}
+
+.hero_link {
+    text-decoration: none;
+    cursor: pointer;
+    justify-content: end;
+}
