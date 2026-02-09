@@ -1,0 +1,27 @@
+.product_page_list {
+    padding: 0 15px;
+}
+
+.product_list_header {
+    justify-content: space-between;
+    margin:10px 20px;
+}
+
+.product_list_header h2 {
+    font-size: 24px;
+}
+
+.sort {
+    border: none;
+    outline: none;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(248, 249, 249);
+}
+
+.product_list {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}

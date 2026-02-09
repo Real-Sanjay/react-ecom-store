@@ -1,0 +1,25 @@
+.quantity_input {
+    justify-content: center;
+}
+
+.quantity_input_btn {
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    border: none;
+    background-color: orange;
+    color: white;
+    cursor: pointer;
+}
+
+.quantity_input_count{
+    margin: 0 40px;
+    text-align: center;
+
+}
+
+.quantity_input_btn:disabled {
+    background-color: rgb(255, 200, 80);
+}

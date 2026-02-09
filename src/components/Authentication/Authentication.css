@@ -1,0 +1,64 @@
+.login_form {
+    justify-content: center;
+    margin-top: 30px;
+
+}
+
+.login_form_group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff;
+    padding: 32px 35px;
+    width: 400px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    
+}
+
+.login_form_group h2 {
+    font-size: 30px;
+    text-align: center;
+}
+
+.form_inputs {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form_input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form_input label {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.form_input input {
+    padding: 7px 15px;
+    font-size: 16px;
+    border: 1px solid rgb(153, 153, 153);
+    border-radius: 4px;
+    outline: none;
+    
+}
+
+.form_inputs button {
+    margin-top: 10px;
+    padding: 7px 15px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.error_message {
+    color: red;
+    font-size: 14px;
+}

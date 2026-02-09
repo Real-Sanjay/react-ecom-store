@@ -10,6 +10,8 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  margin: 35px 10px;
+  gap: 20px;
 }
 
 /* =========================

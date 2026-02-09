@@ -1,0 +1,127 @@
+
+section.cart_page {
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
+  max-width: 600px;
+  margin: 50px auto;
+  /* background-color: white; */
+  border-radius: 12px;
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); */
+  flex-direction: column;
+  gap: 30px;
+}
+
+.user_profile {
+  margin: 0 auto;
+}
+
+.user_profile_pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.profile_details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: start;
+}
+
+.user_name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.user_email {
+  font-size: 1rem;
+  color: #777;
+}
+
+table.bill_detail {
+  /* width: 100%; */
+  border-spacing: 0;
+  margin-top: 20px;
+}
+
+table.bill_detail td {
+  padding: 12px;
+  font-size: 1rem;
+  color: #333;
+  text-align: left;
+}
+
+table.bill_detail td:first-child {
+  font-weight: 500;
+}
+
+table.bill_detail td:last-child {
+  text-align: right;
+  font-weight: 700;
+  color: #2b8a3e; /* Green color for totals */
+}
+
+.checkout_btn {
+  padding: 15px 30px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  align-self: center;
+  margin-top: 20px;
+}
+
+.remove_icon {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.checkout_btn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.checkout_btn:active {
+  background-color: #388e3c;
+  transform: translateY(1px);
+}
+
+@media (max-width: 768px) {
+  section.cart_page {
+    padding: 20px;
+  }
+
+  .user_profile_pic {
+    width: 60px;
+    height: 60px;
+  }
+
+  .user_name {
+    font-size: 1.125rem;
+  }
+
+  .user_email {
+    font-size: 0.875rem;
+  }
+
+  table.bill_detail td {
+    padding: 10px;
+  }
+
+  .checkout_btn {
+    padding: 12px 25px;
+  }
+
+}
+

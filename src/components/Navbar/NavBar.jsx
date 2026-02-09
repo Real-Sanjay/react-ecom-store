@@ -25,11 +25,11 @@ const NavBar = () => {
       </div>
       <div className="align-items navlinks">
         <IconWithLink title={"Home"} link={"/"} icon={Rocket} />
-        <IconWithLink title={"Products"} link={"/"} icon={Star} />
-        <IconWithLink title={"Login"} link={"/"} icon={IdButton} />
-        <IconWithLink title={"SignUp"} link={"/"} icon={Memo} />
-        <IconWithLink title={"My Orders"} link={"/"} icon={Order} />
-        <IconWithLink title={"Lock"} link={"/"} icon={Lock} />
+        <IconWithLink title={"Products"} link={"/products"} icon={Star} />
+        <IconWithLink title={"Login"} link={"/login"} icon={IdButton} />
+        <IconWithLink title={"SignUp"} link={"/signup"} icon={Memo} />
+        <IconWithLink title={"My Orders"} link={"/myorders"} icon={Order} />
+        <IconWithLink title={"Lock"} link={"/lock"} icon={Lock} />
         <a href="#" className="align-items cart_link"> Cart <p className="align-items cart_link_icon">0</p>
         </a>
       </div>
