@@ -17,7 +17,6 @@ const useData = (url, params, deps) => {
 
     if(prevCategoryRef.current !== currentCategory) {
         setData(null);
-        setHasMore(true);
         prevCategoryRef.current = currentCategory; 
      }
       setisLoading(true);
@@ -26,17 +25,42 @@ const useData = (url, params, deps) => {
         if(url === '/products') { 
               const newProducts = res?.data?.products || [];
               
-              if(newProducts.length === 0 || newProducts.length < params?.params?.perPage)  
+              if(newProducts.length === 0 || res?.data?.currentPage >= res?.data?.totalPages)  
               {
                 setHasMore(false);
               }
-               
-              if( currentPage > 1 && data?.products ) {
+              if(currentPage > 1 && data === null){
+                  const reHydrate = async() => {
+                      let allProducts = []; // To Hold all the products fetched 
+                      let lastRes; // to store latest  data from products
+                      setisLoading(true);
+                      try{
+                        for(let i = 1; i <= currentPage; i ++) {
+                          const res = await apiClient.get(url,{ ...params, params: {...params.params, page: i}});
+                          allProducts = [...allProducts, ...res.data?.products];
+                          lastRes = res;
+                        }
+
+                        setData({...lastRes.data, products:[ ...allProducts]});
+                        setisLoading(false);
+
+                        if(lastRes.data.currentPage >= lastRes.data.totalPages) {
+                          setHasMore(false);
+                        }
+                      } catch(error) {
+                        setisLoading(false);
+                        setHasMore(false);
+                        setError(error);
+                      }
+                  }
+                  reHydrate();
+                  return;
+              } else if( currentPage > 1 && data?.products ) {
                   setData((prev) => ({
                     ...res?.data,
                     products: [...prev.products, ...newProducts]
                   }))
-              } else {
+              }else {
                 setData(res?.data);
               }
 

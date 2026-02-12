@@ -4,13 +4,14 @@ import "./ProductCard.css";
 import Iphone from "../../assets/iphone.jpg";
 import Star from "../../assets/white-star.png";
 import Basket from "../../assets/basket.png";
+import {Link} from "react-router-dom"
 
-const ProductCard = ({images, price, reviews, stock, title}) => {
+const ProductCard = ({images, price, reviews, stock, title, id}) => {
   return (
     <article className="product-card">
-      <a href="#" className="product-card__image align-items">
+      <Link to={`/products/${id}`} href="#" className="product-card-image align-items">
         <img src={`http://localhost:5000/products/${images[0]}`} alt="iPhone 14 Pro" />
-      </a>
+      </Link>
 
       <div className="product-card__content">
         <h3 className="product-card__price">{price}</h3>

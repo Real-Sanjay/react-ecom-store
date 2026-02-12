@@ -1,23 +1,22 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import "./ProductsPageList.css";
 import ProductCard from "./ProductCard";
 import "react-loading-skeleton/dist/skeleton.css";
 import ProductCardSkeleton from "../Shared/ProductCardSkeleton";
 import { useSearchParams } from "react-router-dom";
 import useData from "../../hooks/useData";
+import useInfiniteScroll from "../../hooks/useInfiniteScroll" 
 
 const ProductsPageList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category");
   const page = parseInt(searchParams.get("page")) || 1;
-
   const { data, error, isLoading, hasMore } = useData(
     "/products",
     { params: { category, page, perPage: 10 } },
     [category, page]
   );
 
-  console.log("data", data)
 
   // Initialize page param if missing
   useEffect(() => {
@@ -29,38 +28,54 @@ const ProductsPageList = () => {
     }
   }, [searchParams, setSearchParams]);
 
-  // Scroll handler with useCallback to maintain reference
-  const handleScroll = useCallback(() => {
-    // Don't fetch if already loading or no more data
-    if (isLoading || !hasMore) return;
+  // // Scroll handler with useCallback to maintain reference
+  // const handleScroll = useCallback(() => {
+  //   // Don't fetch if already loading or no more data
+  //   if (isLoading || !hasMore) return;
 
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  //   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-    // Trigger when user is 200px from bottom
-    if (scrollTop + clientHeight >= scrollHeight - 200) {
-      setSearchParams((prev) => ({
-        ...Object.fromEntries(prev),
-        page: page + 1,
-      }));
-    }
-  }, [isLoading, hasMore, page, setSearchParams]);
+  //   // Trigger when user is 200px from bottom
+  //   if (scrollTop + clientHeight >= scrollHeight - 200) {
+  //     setSearchParams((prev) => ({
+  //       ...Object.fromEntries(prev),
+  //       page: page + 1,
+  //     }));
+  //   }
+  // }, [isLoading, hasMore, page, setSearchParams]);
 
-  // Debounce helper
-  const debounce = (func, delay) => {
-    let timeoutId;
-    return (...args) => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => func(...args), delay);
-    };
-  };
+  // // Debounce helper
+  // const debounce = (func, delay) => {
+  //   let timeoutId;
+  //   return (...args) => {
+  //     clearTimeout(timeoutId);
+  //     timeoutId = setTimeout(() => func(...args), delay);
+  //   };
+  // };
 
-  useEffect(() => {
-    const debouncedScroll = debounce(handleScroll, 200);
-    window.addEventListener("scroll", debouncedScroll);
-    return () => {
-      window.removeEventListener("scroll", debouncedScroll);
-    };
-  }, [handleScroll]);
+  // useEffect(() => {
+  //   const debouncedScroll = debounce(handleScroll, 200);
+  //   window.addEventListener("scroll", debouncedScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", debouncedScroll);
+  //   };
+  // }, [handleScroll]);
+
+  // When user reaches end of the page increase page count to fetch more data
+  const loadMore = useCallback(() =>{
+    if(isLoading || !hasMore) return;
+    setSearchParams((prev) => ({
+      ...Object.fromEntries(prev),
+      page: page + 1,
+    }))
+  }, [isLoading, hasMore, page])
+
+  const loadMoreRef = useInfiniteScroll(loadMore, {
+    threshold: 0.5,
+    rootMargin: '100px',
+    enabled: hasMore && !isLoading,
+  }
+  )
 
   return (
     <section className="product_page_list">
@@ -82,6 +97,7 @@ const ProductsPageList = () => {
         
         {data?.products?.map((product) => (
           <ProductCard
+            id={product._id}
             images={product.images}
             price={product.price}
             reviews={product.reviews}
@@ -98,20 +114,20 @@ const ProductsPageList = () => {
           ))}
       </div>
 
-      {hasMore && !isLoading && (
+      {(data?.products?.length && hasMore && !isLoading) && (
         <div
           ref={loadMoreRef}
-          style={{
-            height: '20px',
-            margin: '20px 0',
-            background: 'rgba(255, 0, 0, 0.1)',
-            border: '1px dashed red',
-            textAlign: 'center',
-            fontSize: '12px',
-            color: 'red'
-          }}
+          // style={{
+          //   height: '20px',
+          //   margin: '20px 0',
+          //   background: 'rgba(255, 0, 0, 0.1)',
+          //   border: '1px dashed red',
+          //   textAlign: 'center',
+          //   fontSize: '12px',
+          //   color: 'red'
+          // }}
         >
-          Load More Trigger
+          {/* Load More Trigger */}
         </div>
       )}
 

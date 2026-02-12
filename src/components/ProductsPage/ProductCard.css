@@ -18,14 +18,15 @@
    Image
 ========================= */
 
-.product-card__image {
+.product-card-image {
   height: 200px;
   justify-content: center;
   border-bottom: 1px solid #e5e5e5;
   padding: 8px;
+  cursor: pointer;
 }
 
-.product-card__image img {
+.product-card-image img {
   max-height: 100%;
   max-width: 100%;
   object-fit: contain;
