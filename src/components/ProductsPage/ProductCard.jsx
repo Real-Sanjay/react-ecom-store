@@ -14,27 +14,27 @@ const ProductCard = ({ product }) => {
   return (
     <article className="product-card">
       <Link
-        to={`/products/${product._id}`}
+        to={`/products/${product?._id}`}
         href="#"
         className="product-card-image align-items"
       >
         <img
-          src={`http://localhost:5000/products/${product.images[0]}`}
+          src={`http://localhost:5000/products/${product?.images[0]}`}
           alt="iPhone 14 Pro"
         />
       </Link>
 
       <div className="product-card__content">
-        <h3 className="product-card__price">{product.price}</h3>
-        <p className="product-card__title">{product.title}</p>
+        <h3 className="product-card__price">{product?.price}</h3>
+        <p className="product-card__title">{product?.title}</p>
 
         <footer className="product-card__footer align-items">
           <div className="product-card__rating align-items">
             <span className="rating-badge align-items">
               <img src={Star} alt="" />
-              {product.reviews.rate}
+              {product?.reviews.rate}
             </span>
-            <span className="rating-count">{product.reviews.count}</span>
+            <span className="rating-count">{product?.reviews.count}</span>
           </div>
 
           {!!user && (
