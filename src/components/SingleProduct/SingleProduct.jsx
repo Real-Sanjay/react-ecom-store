@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useParams } from "react-router-dom";
 
 import './SingleProduct.css'
 import QuantityInputBtn from './QuantityInputBtn';
 import useData from "../../hooks/useData";
 import Loader from './../Shared/Loader';
+import cartContext from '../../context/cartContext';
+import userContext from '../../context/userContext';
 
 const SingleProduct = () => {
-    const [count, setcount] = useState(1);
+    const [quantity, setquantity] = useState(1);
     const {id} = useParams();
     const {data, error, isloading} = useData(`/products/${id}`);
-
-
+    const {addToCart} = useContext(cartContext);
+    const user = useContext(userContext);
 
     const [currentIndex, setCurrentIndex] = useState(0)
   return (
@@ -20,7 +22,7 @@ const SingleProduct = () => {
         {isloading && <Loader/>}
         {(!isloading && data  ) && (<><div className="align-items product_thumbnail">
             {
-                data?.images.map((img, i) => <img className={currentIndex === i ? 'selected_thumbnail' : ''} src={`http://localhost:5000/products/${img}`} alt={data?.title} onClick={() => setCurrentIndex(i)}/>)
+                data?.images.map((img, i) => <img key={i} className={currentIndex === i ? 'selected_thumbnail' : ''} src={`http://localhost:5000/products/${img}`} alt={data?.title} onClick={() => setCurrentIndex(i)}/>)
             }
         </div>
 
@@ -33,8 +35,8 @@ const SingleProduct = () => {
             <p className="product_description">{data?.description}</p>
             <p className="product_price">${data?.price.toFixed(2)}</p>
             <h2 className='product_quantitiy'>Quantity:</h2>
-             <QuantityInputBtn count={count} setCount={setcount} stock={data?.stock}/>
-            <button className="add_cart">Add to Cart</button>
+             <QuantityInputBtn quantity={quantity} setquantity={setquantity} stock={data?.stock}/>
+            {user && <button className="add_cart" onClick={() => addToCart(data, quantity)}>Add to Cart</button>}
         </div></>)}
     </section>
   )

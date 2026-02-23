@@ -1,15 +1,17 @@
 import React from "react";
 import "./NavBar.css";
 import IconWithLink from "../IconWithLink/IconWithLink";
-import Rocket from '../../assets/rocket.png'
-import Star from '../../assets/glowing-star.png'
-import IdButton from '../../assets/id-button.png'
-import Memo from '../../assets/memo.png'
-import Order from '../../assets/package.png'
-import Lock from '../../assets/locked.png'
-import Cart from '../../assets/basket.png'
+import Rocket from "../../assets/rocket.png";
+import Star from "../../assets/glowing-star.png";
+import IdButton from "../../assets/id-button.png";
+import Memo from "../../assets/memo.png";
+import Order from "../../assets/package.png";
+import Lock from "../../assets/locked.png";
+import Cart from "../../assets/basket.png";
+import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ user, cartCount }) => {
+  console.log("cart count in navbar", cartCount);
   return (
     <nav className="align-items navbar">
       <div className="align-items">
@@ -26,12 +28,16 @@ const NavBar = () => {
       <div className="align-items navlinks">
         <IconWithLink title={"Home"} link={"/"} icon={Rocket} />
         <IconWithLink title={"Products"} link={"/products"} icon={Star} />
-        <IconWithLink title={"Login"} link={"/login"} icon={IdButton} />
-        <IconWithLink title={"SignUp"} link={"/signup"} icon={Memo} />
-        <IconWithLink title={"My Orders"} link={"/myorders"} icon={Order} />
-        <IconWithLink title={"Lock"} link={"/lock"} icon={Lock} />
-        <a href="#" className="align-items cart_link"> Cart <p className="align-items cart_link_icon">0</p>
-        </a>
+        {!user && (
+          <>
+            <IconWithLink title={"Login"} link={"/login"} icon={IdButton} />
+            <IconWithLink title={"SignUp"} link={"/signup"} icon={Memo} />
+          </>
+        )}
+        <IconWithLink title={"My Orders"} link={"/myorder"} icon={Order} />
+        {user && <IconWithLink title={"Logout"} link={"/logout"} icon={Lock} />}
+        <Link to={"/cartpage"} className="align-items cart_link"> Cart <span className="align-items cart_link_icon">{cartCount}</span>
+        </Link>
       </div>
     </nav>
   );

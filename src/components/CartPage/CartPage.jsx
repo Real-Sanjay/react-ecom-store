@@ -1,31 +1,72 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import "./CartPage.css";
 import User from "../../assets/user.webp";
 import Table from "../common/Table/Table";
 import QuantityInputBtn from "../SingleProduct/QuantityInputBtn";
 import RemoveIcon from '../../assets/remove.png'
+import userContext from './../../context/userContext';
+import cartContext from './../../context/cartContext';
+import { deleteCartItem } from "../../services/cartService";
+import { checkoutCart } from "../../services/orderService";
+import { toast } from "react-toastify";
 
 const CartPage = () => {
+  const [totalAmount, settotalAmount] = useState(0);
+  const user = useContext(userContext);
+  const {cart, setcart, updateCartQuantity} = useContext(cartContext);
+
+  useEffect(() => {
+    settotalAmount(cart.reduce((acc, {product, quantity}) => acc + product.price * quantity, 0))
+  }, [cart])
+  
+  const deleteProductFromCart = async (id) => {
+      try {
+        await deleteCartItem(id);
+      } catch (error) {
+        console.log("error while deleting cart item", error);
+        return;
+      }
+      const updatedCart = cart.filter( item => item.product._id !== id);
+      setcart(updatedCart);
+  }
+
+  const checkout = () => {
+    const oldCartData = [...cart];
+    console.log("checkout called")
+    setcart([]);
+    checkoutCart().then((res) => {
+      toast.success("order placed successfully!");
+    }).catch((error) => {
+      toast.error("something went wrong!");
+      setcart(oldCartData);
+    })
+  }
   return (
+    <>
+    {user && <>
     <section className="align-items cart_page">
       <div className="user_profile align-items">
-        <img src={User} alt="profile pic" className="user_profile_pic" />
+        <img src={`http://localhost:5000/profile/${user?.profilePic}`} alt="profile pic" className="user_profile_pic" />
         <div className="profile_details">
-          <p className="user_name">Harley</p>
-          <p className="user_email">harley@test.com</p>
+          <p className="user_name">{user?.name}</p>
+          <p className="user_email">{user?.email}</p>
         </div>
       </div>
 
       <Table heading={["item", "price", "quantity", "total", "remove"]}>
         <tbody>
-          <tr>
-            <td>Item 1</td>
-            <td>$100</td>
-            <td><QuantityInputBtn/></td>
-            <td>$200</td>
-            <td><img src={RemoveIcon} alt="remove" className="remove_icon"/></td>
+          {cart.map(({product, quantity}) => {
+            return (
+              <tr key={product._id}>
+            <td>{product.title}</td>
+            <td>${product.price}</td>
+            <td><QuantityInputBtn productId={product._id} quantity={quantity} isCartPage={true} setquantity={updateCartQuantity}/></td>
+            <td>${product.price * quantity}</td>
+            <td><img onClick={() => deleteProductFromCart(product._id)} src={RemoveIcon} alt="remove" className="remove_icon"/></td>
           </tr>
+            )
+          })}
         </tbody>
       </Table>
 
@@ -33,7 +74,7 @@ const CartPage = () => {
         <thead>
           <tr>
             <td>Subtotal</td>
-            <td>$999</td>
+            <td>${totalAmount}</td>
           </tr>
           <tr>
             <td>Shipping Charges</td>
@@ -41,12 +82,14 @@ const CartPage = () => {
           </tr>
           <tr>
             <td>Total</td>
-            <td>$1009</td>
+            <td>${totalAmount+9}</td>
           </tr>
         </thead>
       </table>
-      <button className="checkout_btn">CheckOut</button>
+      <button onClick={() => checkout()} className="checkout_btn">CheckOut</button>
     </section>
+    </>}
+    </>
   );
 };
 

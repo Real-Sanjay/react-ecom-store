@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {z} from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import './Authentication.css'
-
+import './LoginPage.css'
+import { authenticateUser } from '../../services/authService'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { getItem} from '../../util/StorageUtil'
 // Define schema for validation
 const loginErrorSchema = z.object({
     email: z.email("Please enter a valid email address"),
@@ -12,11 +14,23 @@ const loginErrorSchema = z.object({
 })
 
 const Authentication = () => {
+     if(getItem("token")) {
+       return window.location = "/"; 
+    }
+    const [error, seterror] = useState('');
     const {register, handleSubmit, formState: {errors} } = useForm({resolver: zodResolver(loginErrorSchema)});
+    const location = useLocation();
     const onSubmit = (data) => {
-        console.log(data);
+        authenticateUser(data).then((res) => {
+            const {state} = location;
+            window.location = state ? state.from : "/";
+        }).catch((error) => {
+            console.log("login error", error);
+            seterror(error.response.data.message);
+        })
     }
 
+   
   return (
     <section className="align-items login_form">
         <form className="login_form_group" onSubmit={handleSubmit(onSubmit)}>
@@ -34,6 +48,7 @@ const Authentication = () => {
                 </div>
                 <button className="form_submit_btn">Submit</button>
             </div>
+        {error && <p style={{color: 'red', fontfamily: 'italic'}}>error login: {error}</p>}
         </form>
     </section>
   )

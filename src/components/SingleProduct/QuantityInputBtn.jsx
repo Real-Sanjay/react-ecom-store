@@ -1,24 +1,23 @@
-import React, { useState } from "react";
 import "./QuantityInputBtn.css";
 
-const QuantityInputBtn = ({ count, setCount, stock}) => {
+const QuantityInputBtn = ({ quantity, setquantity, stock, productId, isCartPage }) => {
 
   return (
     <div className="align-items quantity_input">
       <button
         className="quantity_input_btn"
-        onClick={() => setCount(prev => prev > 1 ? prev - 1 : 1)}
-        disabled = {count === 1}
+        onClick={ () => isCartPage ? setquantity("decrease", productId) : setquantity(quantity -1)}
+        disabled = {quantity === 1}
       >
         -
       </button>
 
-      <p className="quantity_input_count">{count}</p>
+      <p className="quantity_input_count">{quantity}</p>
 
       <button
         className="quantity_input_btn"
-        onClick={() => setCount(prev => prev + 1)}
-        disabled = {count === stock}
+        onClick={() => isCartPage ? setquantity("increase", productId) : setquantity(quantity + 1)}
+        disabled = {quantity === stock}
       >
         +
       </button>

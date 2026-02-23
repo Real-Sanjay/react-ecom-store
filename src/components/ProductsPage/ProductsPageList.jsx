@@ -28,38 +28,6 @@ const ProductsPageList = () => {
     }
   }, [searchParams, setSearchParams]);
 
-  // // Scroll handler with useCallback to maintain reference
-  // const handleScroll = useCallback(() => {
-  //   // Don't fetch if already loading or no more data
-  //   if (isLoading || !hasMore) return;
-
-  //   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
-  //   // Trigger when user is 200px from bottom
-  //   if (scrollTop + clientHeight >= scrollHeight - 200) {
-  //     setSearchParams((prev) => ({
-  //       ...Object.fromEntries(prev),
-  //       page: page + 1,
-  //     }));
-  //   }
-  // }, [isLoading, hasMore, page, setSearchParams]);
-
-  // // Debounce helper
-  // const debounce = (func, delay) => {
-  //   let timeoutId;
-  //   return (...args) => {
-  //     clearTimeout(timeoutId);
-  //     timeoutId = setTimeout(() => func(...args), delay);
-  //   };
-  // };
-
-  // useEffect(() => {
-  //   const debouncedScroll = debounce(handleScroll, 200);
-  //   window.addEventListener("scroll", debouncedScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", debouncedScroll);
-  //   };
-  // }, [handleScroll]);
 
   // When user reaches end of the page increase page count to fetch more data
   const loadMore = useCallback(() =>{
@@ -97,13 +65,7 @@ const ProductsPageList = () => {
         
         {data?.products?.map((product) => (
           <ProductCard
-            id={product._id}
-            images={product.images}
-            price={product.price}
-            reviews={product.reviews}
-            stock={product.stock}
-            title={product.title}
-            key={product._id}
+            product={product}
           />
         ))}
 
@@ -116,18 +78,7 @@ const ProductsPageList = () => {
 
       {(data?.products?.length && hasMore && !isLoading) && (
         <div
-          ref={loadMoreRef}
-          // style={{
-          //   height: '20px',
-          //   margin: '20px 0',
-          //   background: 'rgba(255, 0, 0, 0.1)',
-          //   border: '1px dashed red',
-          //   textAlign: 'center',
-          //   fontSize: '12px',
-          //   color: 'red'
-          // }}
-        >
-          {/* Load More Trigger */}
+          ref={loadMoreRef}>
         </div>
       )}
 

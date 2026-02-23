@@ -1,10 +1,12 @@
 import "./SignupPage.css";
 import user from "../../assets/user.webp";
+import {registerUser} from "../../services/authService";
 
 import { useForm } from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { use, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // name - Name should be at least 3 characters.
 // email - Please enter valid email
@@ -17,23 +19,41 @@ const signUpSchema = z.object({
     email: z.email({message: "Please enter valid email"}),
     password: z.string().min(8, {message: "Password must be at least 8 characters."}),
     confirmPassword: z.string().min(8, {message: "Password must be at least 8 characters."}),
-    deliveryAddress: z.string().min(8),
+    deliveryAddress: z.string()
 })
 
 
 const SignupPage = () => {
-
+    const [loading, setloading] = useState('');
+    const [error, seterror] = useState('');
     const [userPic, setUserPic] = useState(null);
-    const {register, handleSubmit, formState: {errors}} = useForm({resolver: zodResolver(signUpSchema)})
+    const {register, handleSubmit, formState: {errors}, reset} = useForm({resolver: zodResolver(signUpSchema)})
 
     const onSubmit = (data) => {
+        setloading(true);
+
         if(data.errors) {
             console.log("Errors:", data.errors);
         }
-        console.log(data);
+        const formData =  new FormData();
+
+        Object.keys(data).forEach((key) => {
+            formData.append(key, data[key]);
+        })
+
+        if(userPic) {
+            formData.append('profilePic', userPic);
+        }
+
+        registerUser(formData).then((res) => {
+            window.location = "/"
+        }).catch((error) => {
+            seterror(error.response.data.message);
+        })
+        reset();
+        setloading(false);
     }
 
-    console.log(userPic);
 
     return (
         <section className='align-items form_page'>
@@ -96,7 +116,7 @@ const SignupPage = () => {
                             className='form_text_input'
                             type='password'
                             placeholder='Enter confirm password'
-                            {...register("cpassword")}
+                            {...register("confirmPassword")}
                         />
                         {errors.confirmPassword && (<p className='error_message'>{errors.confirmPassword.message}</p>)}
 
@@ -108,17 +128,19 @@ const SignupPage = () => {
                             id='address'
                             className='input_textarea'
                             placeholder='Enter delivery address'
-                            {...register("address")}
+                            {...register("deliveryAddress")}
                         />
                         {errors.deliveryAddress && (<p className='error_message'>{errors.deliveryAddress.message}</p>)}
 
                     </div>
                 </div>
 
-                <button className='search_button form_submit' type='submit'>
+                <button className='search_button form_submit' type='submit' disabled={loading}>
                     Submit
                 </button>
+
             </form>
+                {error && <p style={{color: "red"}}>Error registering user : {error}</p>}
         </section>
     );
 };
