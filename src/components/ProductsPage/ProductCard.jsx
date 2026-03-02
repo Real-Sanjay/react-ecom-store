@@ -1,4 +1,4 @@
-import React, { use, useContext } from "react";
+import React, { memo, use, useContext } from "react";
 import "./ProductCard.css";
 
 import Iphone from "../../assets/iphone.jpg";
@@ -52,4 +52,4 @@ const ProductCard = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 import "./app.css";
 import NavBar from "./components/Navbar/NavBar";
@@ -36,7 +36,7 @@ const App = () => {
     } catch (error) {}
   }, []);
 
-  useEffect(() => {
+  useCallback(() => {
     if (user) {
       getCartItems()
         .then((res) => {
@@ -49,7 +49,7 @@ const App = () => {
   }, [user]);
 
   // function to add products, qnty to cart
-  const addToCart = (product, quantity) => {
+  const addToCart = useCallback((product, quantity) => {
     const updatedCart = [...cart];
     const currentProductIndex = updatedCart.findIndex(
       (cartProd) => cartProd.product._id === product?._id,
@@ -69,9 +69,9 @@ const App = () => {
         console.error(error);
         setcart(cart);
       });
-  };
+  }, [cart]);
 
-  const updateCartQuantity = async (type, productId) => {
+  const updateCartQuantity = useCallback(async (type, productId) => {
     if (type === "decrease") {
       setcart(
         cart.map((item) => {
@@ -104,9 +104,8 @@ const App = () => {
         return;
       }
     }
-  };
+  }, [cart]);
 
-  const increaseQuantity = async (productId) => {};
 
   return (
     <userContext.Provider value={user}>

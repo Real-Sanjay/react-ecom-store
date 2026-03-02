@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { memo, useContext, useMemo } from "react";
 
 import "./CartPage.css";
 import User from "../../assets/user.webp";
@@ -12,12 +12,11 @@ import { checkoutCart } from "../../services/orderService";
 import { toast } from "react-toastify";
 
 const CartPage = () => {
-  const [totalAmount, settotalAmount] = useState(0);
   const user = useContext(userContext);
   const {cart, setcart, updateCartQuantity} = useContext(cartContext);
 
-  useEffect(() => {
-    settotalAmount(cart.reduce((acc, {product, quantity}) => acc + product.price * quantity, 0))
+  const totalAmount = useMemo(() => {
+    return cart.reduce((acc, {product, quantity}) => acc + product.price * quantity, 0)
   }, [cart])
   
   const deleteProductFromCart = async (id) => {
@@ -93,4 +92,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default memo(CartPage);
