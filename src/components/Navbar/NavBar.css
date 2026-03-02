@@ -15,8 +15,36 @@
     border: 1px solid #cdcdcd;
     border-radius: 5px;
     padding: 3px;
+    position: relative;
 }
 
+.navbar_suggestion {
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    border: 1px solid #cdcdcd;
+    margin-top: 10px;
+    border-radius: 5px;
+    list-style: none;
+    padding: 10px;
+    margin-left: 0px;
+    top: 100%;
+    left: 0;
+}
+
+.navbar_suggestion_item {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.navbar_suggestion_item a {
+    text-decoration: none;
+    color: #000;
+}
+
+.navbar_suggestion_item:hover, .navbar_suggestion_item.active {
+    background-color: #f0f0f0;
+}
 .navbar_search {
     flex: 1;
     height: 100%;
