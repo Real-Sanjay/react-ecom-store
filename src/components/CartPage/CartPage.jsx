@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 
 const CartPage = () => {
   const user = useContext(userContext);
-  const {cart, setcart, updateCartQuantity} = useContext(cartContext);
+  const {cart, dispatch, updateCartQuantity} = useContext(cartContext);
 
   const totalAmount = useMemo(() => {
     return cart.reduce((acc, {product, quantity}) => acc + product.price * quantity, 0)
@@ -26,19 +26,18 @@ const CartPage = () => {
         console.log("error while deleting cart item", error);
         return;
       }
-      const updatedCart = cart.filter( item => item.product._id !== id);
-      setcart(updatedCart);
+      dispatch({ type: "DELETE_CART_ITEM", payload: { productId: id } });
+      toast.success("item removed from cart");
   }
 
   const checkout = () => {
     const oldCartData = [...cart];
-    console.log("checkout called")
-    setcart([]);
+    dispatch({ type: "SET_CART", payload: [] });
     checkoutCart().then((res) => {
       toast.success("order placed successfully!");
     }).catch((error) => {
       toast.error("something went wrong!");
-      setcart(oldCartData);
+      dispatch({ type: "FALLBACK_CART", payload: oldCartData });
     })
   }
   return (
