@@ -4,35 +4,38 @@ import ProductCard from "./ProductCard";
 import "react-loading-skeleton/dist/skeleton.css";
 import ProductCardSkeleton from "../Shared/ProductCardSkeleton";
 import { useSearchParams } from "react-router-dom";
-import useData from "../../hooks/useData";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
+import useInfiniteProducts from "../../hooks/useInfiniteProducts";
 
 const ProductsPageList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category");
-  const page = parseInt(searchParams.get("page")) || 1;
+  // const page = parseInt(searchParams.get("page")) || 1;
   const searchQuery = searchParams.get("search");
   const [sortBy, setsortBy] = useState("")
-  const { data, error, isLoading, hasMore } = useData(
-    "/products",
-    { params: { category, page, perPage: 10, search: searchQuery } },
-    [category, page, searchQuery],
-  );
+const {  products, error, isLoading, hasNextPage: hasMore, fetchNextPage } =
+  useInfiniteProducts({
+    category,
+    searchQuery,
+    perPage: 10,
+  });
+
+  console.log("products", products)
 
   // Initialize page param if missing
-  useEffect(() => {
-    if (!searchParams.get("page")) {
-      setSearchParams((prev) => ({
-        ...Object.fromEntries(prev),
-        page: 1,
-      }));
-    }
-  }, [searchQuery, category]);
+  // useEffect(() => {
+  //   if (!searchParams.get("page")) {
+  //     setSearchParams((prev) => ({
+  //       ...Object.fromEntries(prev),
+  //       page: 1,
+  //     }));
+  //   }
+  // }, [searchQuery, category]);
 
 const sortedProducts = useMemo(() => {
-  if (!data?.products) return [];
+  if (!products) return [];
 
-  const sortedData = [...data.products];
+  const sortedData = [...products];
 
   switch (sortBy) {
     case "price desc":
@@ -50,17 +53,14 @@ const sortedProducts = useMemo(() => {
     default:
       return sortedData;
   }
-}, [data, sortBy]);
+}, [products, sortBy]);
 
 
   // When user reaches end of the page increase page count to fetch more data
   const loadMore = useCallback(() => {
     if (isLoading || !hasMore) return;
-    setSearchParams((prev) => ({
-      ...Object.fromEntries(prev),
-      page: page + 1,
-    }));
-  }, [isLoading, hasMore, page]);
+    fetchNextPage();
+  }, [isLoading, hasMore, fetchNextPage]);
 
   const loadMoreRef = useInfiniteScroll(loadMore, {
     threshold: 0.5,
@@ -92,24 +92,24 @@ const sortedProducts = useMemo(() => {
 
         {/* Show loading skeletons when fetching MORE data */}
         {isLoading &&
-          Array.from({ length: page === 1 ? 10 : 4 }).map((_, i) => (
+          Array.from({ length:  10  }).map((_, i) => (
             <ProductCardSkeleton key={`skeleton-${i}`} />
           ))}
       </div>
 
-      {!!data?.products?.length && hasMore && !isLoading && (
+      {!!products?.length && hasMore && !isLoading && (
         <div ref={loadMoreRef}></div>
       )}
 
       {/* End message */}
-      {!hasMore && data?.products?.length > 0 && (
+      {!hasMore && products?.length > 0 && (
         <p style={{ color: "#000", textAlign: "center", padding: "20px" }}>
           You've reached the end 🎉
         </p>
       )}
 
       {/* No products found */}
-      {!isLoading && data?.products?.length === 0 && (
+      {!isLoading && products?.length === 0 && (
         <p style={{ textAlign: "center", padding: "20px" }}>
           No products found
         </p>

@@ -5,7 +5,7 @@ import useData from "./../../hooks/useData";
 import ProductCardSkeleton from './../Shared/ProductCardSkeleton';
 
 const FeaturedProduct = () => {
-  const { data, error, isLoading } = useData("/products/featured");
+  const { data, error, isLoading } = useData("/products/featured", "featuredProducts");
   const skeletons = [1, 2, 3];
 
   return (

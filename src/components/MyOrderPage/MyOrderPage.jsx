@@ -8,7 +8,7 @@ import Loader from "../Shared/Loader";
 
 const MyOrderPage = () => {
 
-  const {data:orders, error, isLoading} = useData("/order");
+  const {data:orders, error, isLoading} = useData("/order", "orders");
 
   const getProductNames = (products) => {
     const productNames = products?.map((prod) => `${prod.product.title}(${prod.quantity})`);

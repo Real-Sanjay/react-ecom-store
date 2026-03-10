@@ -11,7 +11,7 @@ import userContext from '../../context/userContext';
 const SingleProduct = () => {
     const [quantity, setquantity] = useState(1);
     const {id} = useParams();
-    const {data, error, isloading} = useData(`/products/${id}`);
+    const {data, error, isloading} = useData(`/products/${id}`, "product");
     const {addToCart} = useContext(cartContext);
     const user = useContext(userContext);
 

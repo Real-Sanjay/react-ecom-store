@@ -3,7 +3,7 @@ import IconWithLink from './../IconWithLink/IconWithLink';
 import useData from '../../hooks/useData';
 const ProductsPageSidebar = () => {
 
-  const {data, error} = useData("/category");
+  const {data, error} = useData("/category", "categories");
 
 
   return (
