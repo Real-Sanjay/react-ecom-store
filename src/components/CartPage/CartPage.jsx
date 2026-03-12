@@ -7,28 +7,18 @@ import QuantityInputBtn from "../SingleProduct/QuantityInputBtn";
 import RemoveIcon from '../../assets/remove.png'
 import userContext from './../../context/userContext';
 import cartContext from './../../context/cartContext';
-import { deleteCartItem } from "../../services/cartService";
 import { checkoutCart } from "../../services/orderService";
 import { toast } from "react-toastify";
 
 const CartPage = () => {
   const user = useContext(userContext);
-  const {cart, dispatch, updateCartQuantity} = useContext(cartContext);
+  const {cart, dispatch, updateCartQuantity, deleteProductFromCart} = useContext(cartContext);
 
   const totalAmount = useMemo(() => {
-    return cart.reduce((acc, {product, quantity}) => acc + product.price * quantity, 0)
+    return cart?.reduce((acc, {product, quantity}) => acc + product.price * quantity, 0)
   }, [cart])
   
-  const deleteProductFromCart = async (id) => {
-      try {
-        await deleteCartItem(id);
-      } catch (error) {
-        console.log("error while deleting cart item", error);
-        return;
-      }
-      dispatch({ type: "DELETE_CART_ITEM", payload: { productId: id } });
-      toast.success("item removed from cart");
-  }
+
 
   const checkout = () => {
     const oldCartData = [...cart];
