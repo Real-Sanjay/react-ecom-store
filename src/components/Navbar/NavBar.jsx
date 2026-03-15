@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import "./NavBar.css";
 import IconWithLink from "../IconWithLink/IconWithLink";
 import Rocket from "../../assets/rocket.png";
@@ -65,7 +66,7 @@ const NavBar = ({ user, cartCount }) => {
   }, [search]);
 
   return (
-    <nav className="align-items navbar">
+    <motion.nav className="align-items navbar" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition= {{duration: 1, ease: "easeInout"}} >
       <div className="align-items">
         <h1 className="navbar_heading">CartWish</h1>
         <form
@@ -112,7 +113,7 @@ const NavBar = ({ user, cartCount }) => {
           Cart <span className="align-items cart_link_icon">{cartCount}</span>
         </Link>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 
