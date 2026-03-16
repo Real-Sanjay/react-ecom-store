@@ -1,32 +1,67 @@
-.link_icon {
-    width: 25px;
-    margin-right: 20px;
-}
-
-.navlinks_link{
+.nav_item {
     text-decoration: none;
-    font-size: 20px;
-    color: inherit;
+    color: #1f2937;
     font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    position: relative;
 }
 
 .sidebar_link {
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    font-size: large;
-    background-color: #fff;
-    text-decoration: none;
-    color: #000;
-    padding: 10px 5px;
-    border-radius: 5px;
-    transition: all 0.15s ease-in-out;
-}
-
-.sidebar_link img{
-    width: 30px;
-    margin-right: 5px;
+  display: block;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  text-decoration: none;
 }
 
 .sidebar_link:hover {
-background-color: #f6f6f6;
+  background-color: #f3f4f6;
+}
+
+.sidebar_link.active_item {
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
+
+.nav_item::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    transition: width 0.25s ease;
+}
+
+.navlinks_link {
+    font-size: 16px;
+}
+
+.nav_item:hover::after {
+    width: 100%;
+}
+
+.active_link::after {
+    width: 100%;
+}
+
+.cart_count {
+    position: absolute;
+    background-color: #9e0f0f;
+    width: 25px;
+    height: 25px;
+    margin: 0 1px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 16px;
+    top: -6px;
+    right: -15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

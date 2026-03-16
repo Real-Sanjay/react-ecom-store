@@ -68,18 +68,6 @@
     font-weight: 500;
 }
 
-.cart_link {
-    text-decoration: none;
-    font-size: 18px;
-    color: #000;
-}
-
-.cart_link_icon {
-   background-color: #6558eb;
-   width: 20px;
-   height: 20px;
-   margin: 0 2px;
-   justify-content: center;
-   color: #fff;
-   border-radius: 15px;
+.navlinks {
+    gap: 15px;
 }

@@ -14,11 +14,23 @@
 .sort {
     border: none;
     outline: none;
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 500;
     padding: 5px;
     border-radius: 5px;
-    background-color: rgb(248, 249, 249);
+    background-color: rgb(243, 243, 243);
 }
+
+.sort option {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px;
+    border-radius: 5px;
+    color: gray;
+}
+
 
 .product_list {
     display: flex;

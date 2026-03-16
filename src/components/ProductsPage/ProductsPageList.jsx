@@ -20,17 +20,6 @@ const {  products, error, isLoading, hasNextPage: hasMore, fetchNextPage } =
     perPage: 10,
   });
 
-  console.log("products", products)
-
-  // Initialize page param if missing
-  // useEffect(() => {
-  //   if (!searchParams.get("page")) {
-  //     setSearchParams((prev) => ({
-  //       ...Object.fromEntries(prev),
-  //       page: 1,
-  //     }));
-  //   }
-  // }, [searchQuery, category]);
 
 const sortedProducts = useMemo(() => {
   if (!products) return [];
@@ -73,7 +62,7 @@ const sortedProducts = useMemo(() => {
       <header className="align-items product_list_header">
         <h2>Products</h2>
         <select name="" id="" className="sort" onChange={(e) => setsortBy(e.target.value)}>
-          <option value="">Relevance</option>
+          <option value="">Sort Products</option>
           <option value="price desc">PRICE High to Low</option>
           <option value="price asc">PRICE Low to High</option>
           <option value="rate desc">RATE High to Low</option>

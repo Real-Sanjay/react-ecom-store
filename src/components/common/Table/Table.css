@@ -6,7 +6,9 @@
     box-shadow: 0px 3px 8px rgba(0,0,0,0.24);
 }
 
+
 .common_table thead th {
+    padding: 0 15px;
     height: 50px;
     background-color: #36304a;
     color: #fff;
@@ -16,6 +18,7 @@
 .common_table tbody tr {
     height: 50px;
     text-align: center;
+    padding-left: 5px;
 }
 
 .common_table tbody tr:nth-child(even) {

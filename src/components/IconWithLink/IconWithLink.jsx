@@ -1,14 +1,29 @@
-import React from "react";
 import './IconWithLink.css'
+import { NavLink, useSearchParams } from "react-router-dom";
 
-import { NavLink } from "react-router-dom";
+const IconWithLink = ({ title, link, sidebar, cartCount }) => {
 
-const IconWithLink = ({title, icon, link, sidebar}) => {
+const [searchParam] = useSearchParams();
+
+const isActive = (sidebar && decodeURIComponent(searchParam.get("category")) === title)
+  
   return (
-      <NavLink to={link} className={sidebar ? "sidebar_link align-items"  : "align-items navlinks_link"}>
-        {title}
-        <img src={icon} alt="icon" className="link_icon" />
-      </NavLink>
+    <NavLink
+      to={link}
+      end
+      className={({ isActive: navActive }) =>
+        `${sidebar ? "sidebar_link" : "navlinks_link nav_item"} ${
+          navActive ? "active_link" : ""
+        }
+        ${
+          isActive ? "active_item" : ""
+        }
+        `
+      }
+    >
+      {title}
+      {(title === "Cart" && cartCount > 0) &&<span className="cart_count">{cartCount}</span>}
+    </NavLink>
   );
 };
 

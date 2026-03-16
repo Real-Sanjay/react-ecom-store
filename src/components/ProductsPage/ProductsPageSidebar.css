@@ -1,12 +1,26 @@
-.product_page_category{
-    width: 90%;
-    padding: 10px 15px;
-    margin: 10px 20px;
+.product_page_category {
+    width: 100%;
+    max-width: 260px;
+    padding: 16px;
+    margin: 10px 0;
     background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
 
 .product_page_category h2 {
-    margin: 10px;
+    margin: 0 0 12px 0;
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 700;
+    color: #111827;
+}
+
+.category_container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-left: 10px;
+    margin-top: 20px;
 }
