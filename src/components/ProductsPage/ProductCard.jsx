@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
         className="product-card-image align-items"
       >
         <img
-          src={`http://localhost:5000/products/${product?.images[0]}`}
+          src={`https://cartwish-backend-rjnx.onrender.com/products/${product?.images[0]}`}
           alt="iPhone 14 Pro"
         />
       </Link>

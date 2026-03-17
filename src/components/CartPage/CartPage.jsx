@@ -35,7 +35,7 @@ const CartPage = () => {
     {user && <>
     <section className="align-items cart_page">
       <div className="user_profile align-items">
-        <img src={`http://localhost:5000/profile/${user?.profilePic}`} alt="profile pic" className="user_profile_pic" />
+        <img src={`https://cartwish-backend-rjnx.onrender.com/profile/${user?.profilePic}`} alt="profile pic" className="user_profile_pic" />
         <div className="profile_details">
           <p className="user_name">{user?.name}</p>
           <p className="user_email">{user?.email}</p>

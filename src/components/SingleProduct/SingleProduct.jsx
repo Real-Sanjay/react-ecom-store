@@ -22,12 +22,12 @@ const SingleProduct = () => {
         {isloading && <Loader/>}
         {(!isloading && data  ) && (<><div className="align-items product_thumbnail">
             {
-                data?.images.map((img, i) => <img key={i} className={currentIndex === i ? 'selected_thumbnail' : ''} src={`http://localhost:5000/products/${img}`} alt={data?.title} onClick={() => setCurrentIndex(i)}/>)
+                data?.images.map((img, i) => <img key={i} className={currentIndex === i ? 'selected_thumbnail' : ''} src={`https://cartwish-backend-rjnx.onrender.com/products/${img}`} alt={data?.title} onClick={() => setCurrentIndex(i)}/>)
             }
         </div>
 
         <div className="selected_image">
-            <img src={`http://localhost:5000/products/${data?.images[currentIndex]}`} alt={data?.images[currentIndex]} />
+            <img src={`https://cartwish-backend-rjnx.onrender.com/products/${data?.images[currentIndex]}`} alt={data?.images[currentIndex]} />
         </div>
 
         <div className="product_details">

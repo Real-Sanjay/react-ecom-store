@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 
-import "./app.css";
+import "./App.css";
 import NavBar from "./components/Navbar/NavBar";
 import Main from "./components/Main/Main";
 import { getItem, setAuthToken } from "./util/StorageUtil";
