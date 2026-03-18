@@ -14,7 +14,19 @@ body {
   font-optical-sizing: auto;
   font-weight: 500;
   background-color: rgba(247, 244, 244, 0.804);
-  /* font-style: normal; */
+  margin: 0;
+  box-sizing: border-box;
+  min-width: 320px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  width: min(100%, 1200px);
+  margin: 0 auto;
+  padding: 0 10px;
 }
 
 .align-items {

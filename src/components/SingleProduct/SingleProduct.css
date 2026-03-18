@@ -76,3 +76,35 @@
     cursor: pointer;
     
 }
+
+@media (max-width: 1024px) {
+  .single_product_page {
+    margin: 15px 10px;
+    gap: 16px;
+  }
+
+  .selected_image {
+    width: 100%;
+    height: auto;
+  }
+
+  .product_details {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .selected_image img {
+    width: 100%;
+  }
+
+  .product_thumbnail {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .product_title { font-size: 24px; }
+  .product_price { font-size: 20px; }
+  .product_description { font-size: 14px; }
+  .add_cart { width: 100%; }
+}

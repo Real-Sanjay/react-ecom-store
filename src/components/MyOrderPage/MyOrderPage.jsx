@@ -7,34 +7,51 @@ import useData from "../../hooks/useData";
 import Loader from "../Shared/Loader";
 
 const MyOrderPage = () => {
-
-  const {data:orders, error, isLoading} = useData("/order", "orders");
+  const { data: orders, error, isLoading } = useData("/order", "orders");
 
   const getProductNames = (products) => {
-    const productNames = products?.map((prod) => `${prod.product.title}(${prod.quantity})`);
-    return productNames.join(", ")
-  }
+    const productNames = products?.map(
+      (prod) => `${prod.product.title}(${prod.quantity})`,
+    );
+    return productNames.join(", ");
+  };
 
   console.log("orders", orders);
   return (
-    
     <section className="align-items order_page">
-      {error && <p className='error' style={{color: 'red'}}  >Error: {error}</p>}
-      {isLoading && <Loader/>}
-      <Table heading={["order", "products", "total", "status"]}>
-        <tbody>
-          {orders?.map((order, index) => {
-            return (
-              <tr key={order._id}>
-                <td>{ index +1 || 0}</td>
-                <td>{getProductNames(order.products)}</td>
-                <td>{order.total || 0}</td>
-                <td>{order.status || "N/A"}</td>
+      {error && (
+        <p className="error" style={{ color: "red" }}>
+          Error: {error}
+        </p>
+      )}
+      {isLoading ? (
+        <Loader message="Loading your orders, please wait..." />
+      ) : (
+        <Table heading={["order", "products", "total", "status"]}>
+          <tbody>
+            {orders?.length === 0 && (
+              <tr>
+                <td
+                  colSpan={4}
+                  style={{ textAlign: "center", padding: "20px" }}
+                >
+                  No orders yet.
+                </td>
               </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+            )}
+            {orders?.map((order, index) => {
+              return (
+                <tr key={order._id}>
+                  <td>{index + 1 || 0}</td>
+                  <td>{getProductNames(order.products)}</td>
+                  <td>${order.total || 0}</td>
+                  <td>{order.status || "N/A"}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      )}
     </section>
   );
 };

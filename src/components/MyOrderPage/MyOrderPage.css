@@ -1,5 +1,18 @@
 .order_page {
     width: 70%;
     margin: 0 auto;
-    padding:70px 48px;
+    padding: 70px 48px;
+}
+
+@media (max-width: 1024px) {
+  .order_page {
+    width: 95%;
+    padding: 30px 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .order_page {
+    padding: 20px 12px;
+  }
 }

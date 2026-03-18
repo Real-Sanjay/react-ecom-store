@@ -1,4 +1,11 @@
 .app {
   display: grid;
-  grid-template-rows: 80px auto;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+}
+
+@media (max-width: 640px) {
+  .app {
+    grid-template-rows: auto 1fr;
+  }
 }

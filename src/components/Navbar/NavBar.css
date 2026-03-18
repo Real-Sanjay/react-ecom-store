@@ -71,3 +71,53 @@
 .navlinks {
     gap: 15px;
 }
+
+@media (max-width: 1024px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 10px 16px;
+    gap: 10px;
+  }
+
+  .navbar_heading {
+    font-size: 26px;
+    margin-right: 10px;
+  }
+
+  .navbar_form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0;
+  }
+
+  .navbar_button {
+    font-size: 16px;
+    padding: 0 8px;
+  }
+
+  .navlinks {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    padding: 8px;
+    grid-gap: 8px;
+  }
+
+  .navbar_search {
+    font-size: 16px;
+  }
+
+  .navbar_button {
+    font-size: 14px;
+    border-radius: 4px;
+  }
+
+  .navbar_heading { font-size: 22px; }
+}
+

@@ -26,7 +26,8 @@ const FeaturedProduct = () => {
         {error && <em className="form_error">{error}</em>}
         {data &&
           data?.map((product, i) => (
-            <motion.div
+            <motion.div 
+              key={product._id}
               initial={{ opacity: 0, y: -30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeInout", delay: i * 0.25 }}

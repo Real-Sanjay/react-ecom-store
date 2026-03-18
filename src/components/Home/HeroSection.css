@@ -61,3 +61,27 @@
     cursor: pointer;
     justify-content: end;
 }
+
+@media (max-width: 1024px) {
+  .hero_main {
+    grid-template-columns: 1fr;
+    height: auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  .hero_image {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .hero_desc {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero_title { font-size: 28px; }
+  .hero_desc { font-size: 16px; }
+  .hero_buy_btn { width: 100%; }
+}

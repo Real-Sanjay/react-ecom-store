@@ -37,3 +37,10 @@
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
+
+@media (max-width: 768px) {
+  .product_list {
+    justify-content: center;
+    gap: 10px;
+  }
+}

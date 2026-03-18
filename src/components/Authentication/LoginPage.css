@@ -62,3 +62,15 @@
     color: red;
     font-size: 14px;
 }
+
+@media (max-width: 768px) {
+  .login_form_group {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .form_inputs button {
+    font-size: 16px;
+    padding: 10px;
+  }
+}
