@@ -3,7 +3,7 @@ section.cart_page {
   justify-content: center;
   align-items: flex-start;
   padding: 40px;
-  max-width: 600px;
+  max-width: 1000px;
   margin: 50px auto;
   /* background-color: white; */
   border-radius: 12px;
@@ -45,7 +45,7 @@ section.cart_page {
 }
 
 table.bill_detail {
-  /* width: 100%; */
+  width: 100%;
   border-spacing: 0;
   margin-top: 20px;
 }
@@ -124,4 +124,9 @@ table.bill_detail td:last-child {
   }
 
 }
+
+.cart_table td{
+  padding-left: 5px;
+}
+
 

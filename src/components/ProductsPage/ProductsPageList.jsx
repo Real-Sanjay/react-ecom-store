@@ -84,6 +84,10 @@ const sortedProducts = useMemo(() => {
           Array.from({ length:  10  }).map((_, i) => (
             <ProductCardSkeleton key={`skeleton-${i}`} />
           ))}
+
+         {hasMore && Array.from({ length : 5 }).map((_, i) => (
+          <ProductCardSkeleton key={i}/>
+         ))} 
       </div>
 
       {!!products?.length && hasMore && !isLoading && (
@@ -91,7 +95,7 @@ const sortedProducts = useMemo(() => {
       )}
 
       {/* End message */}
-      {!hasMore && products?.length > 0 && (
+      {((!hasMore && products?.length > 0 )&& (products?.length > 10)) && (
         <p style={{ color: "#000", textAlign: "center", padding: "20px" }}>
           You've reached the end 🎉
         </p>

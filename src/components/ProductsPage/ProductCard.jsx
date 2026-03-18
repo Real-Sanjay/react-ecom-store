@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
       </Link>
 
       <div className="product-card__content">
-        <h3 className="product-card__price">{product?.price}</h3>
+        <h3 className="product-card__price">${product?.price}</h3>
         <p className="product-card__title">{product?.title}</p>
 
         <footer className="product-card__footer align-items">
